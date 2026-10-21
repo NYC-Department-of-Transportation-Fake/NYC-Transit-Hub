@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+@theme {
+  --color-nyu: #57068c;
+}
