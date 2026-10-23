@@ -1,5 +1,6 @@
 import { Link, Route, Routes } from "react-router";
 import MapPage from "./pages/MapPage";
+import ServiceStatusPage from "./pages/ServiceStatusPage";
 
 export default function App() {
   return (
@@ -8,6 +9,9 @@ export default function App() {
         <h1 className="text-2xl font-bold text-nyu">NYC Transit Hub</h1>
 
         <nav className="mt-4 flex flex-wrap gap-6">
+          <Link to="/status" className="hover:text-nyu">
+            Service & Accessibility
+          </Link>
           <Link to="/" className="hover:text-nyu">
             Map
           </Link>
@@ -24,6 +28,7 @@ export default function App() {
 
       <main className="mx-auto max-w-6xl p-6">
         <Routes>
+          <Route path="/status" element={<ServiceStatusPage />} />
           <Route path="/" element={<MapPage />} />
 
           <Route
