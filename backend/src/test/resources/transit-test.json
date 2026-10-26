@@ -1,0 +1,17 @@
+{
+  "stations": [
+    {"id":"S3","name":"Park","latitude":40.72,"longitude":-73.97,"routeIds":["B"],"stopIds":["S3N"]},
+    {"id":"S2","name":"Central","latitude":40.71,"longitude":-73.98,"routeIds":["B"],"stopIds":["S2N"]},
+    {"id":"S1","name":"Central","latitude":40.70,"longitude":-73.99,"routeIds":["A"],"stopIds":["S1N","S1S"]}
+  ],
+  "stops": [
+    {"id":"S1N","stationId":"S1","directionLabel":"Uptown"},
+    {"id":"S1S","stationId":"S1","directionLabel":"Downtown"},
+    {"id":"S2N","stationId":"S2","directionLabel":null},
+    {"id":"S3N","stationId":"S3","directionLabel":null}
+  ],
+  "routes": [
+    {"id":"B","shortName":"B","longName":"Test B","color":"FF6319","textColor":"FFFFFF"},
+    {"id":"A","shortName":"A","longName":"Test A","color":"0039A6","textColor":"FFFFFF"}
+  ]
+}
