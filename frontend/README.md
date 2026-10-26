@@ -1,4 +1,8 @@
-# React + TypeScript + Vite
+# NYC Transit Hub frontend
+
+See [INTEGRATION.md](INTEGRATION.md) for startup commands, connected backend pages and testing instructions.
+
+## Vite template notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
