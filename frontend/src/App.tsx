@@ -3,6 +3,7 @@ import MapPage from "./pages/MapPage";
 import ServiceStatusPage from "./pages/ServiceStatusPage";
 import StationsPage from "./pages/StationsPage";
 import StationDetailPage from "./pages/StationDetailPage";
+import JourneysPage from "./pages/JourneysPage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Link to="/status" className="hover:text-nyu">
             Service & Accessibility
           </Link>
+
           <Link to="/" className="hover:text-nyu">
             Map
           </Link>
@@ -31,23 +33,14 @@ export default function App() {
       <main className="mx-auto max-w-6xl p-6">
         <Routes>
           <Route path="/status" element={<ServiceStatusPage />} />
+
           <Route path="/" element={<MapPage />} />
 
           <Route path="/stations" element={<StationsPage />} />
+
           <Route path="/stations/:stationId" element={<StationDetailPage />} />
 
-          <Route
-            path="/journeys"
-            element={
-              <section>
-                <h2 className="text-2xl font-bold">Plan a Trip</h2>
-
-                <p className="mt-2 text-slate-600">
-                  Trip planning is coming soon. Use Stations to check upcoming arrivals.
-                </p>
-              </section>
-            }
-          />
+          <Route path="/journeys" element={<JourneysPage />} />
 
           <Route
             path="*"
