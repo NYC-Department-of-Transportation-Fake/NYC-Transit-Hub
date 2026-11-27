@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "首页",
+    "map": "地图",
+    "stations": "站点",
+    "serviceStatus": "运营与无障碍服务",
+    "planTrip": "行程规划",
+    "favorites": "我的收藏",
+    "signIn": "登录",
+    "signOut": "退出登录"
+  },
+  "language": {
+    "english": "English",
+    "chinese": "中文"
+  }
+}

@@ -1,3 +1,5 @@
+import LanguageSwitcher from "./components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 import { Link, Route, Routes } from "react-router";
 import MapPage from "./pages/MapPage";
 import ServiceStatusPage from "./pages/ServiceStatusPage";
@@ -6,6 +8,7 @@ import StationDetailPage from "./pages/StationDetailPage";
 import JourneysPage from "./pages/JourneysPage";
 
 export default function App() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <header className="border-b border-slate-200 bg-white px-6 py-4">
@@ -13,21 +16,22 @@ export default function App() {
 
         <nav className="mt-4 flex flex-wrap gap-6">
           <Link to="/status" className="hover:text-nyu">
-            Service & Accessibility
+            {t("nav.serviceStatus")}
           </Link>
 
           <Link to="/" className="hover:text-nyu">
-            Map
+            {t("nav.map")}
           </Link>
 
           <Link to="/stations" className="hover:text-nyu">
-            Stations
+            {t("nav.stations")}
           </Link>
 
           <Link to="/journeys" className="hover:text-nyu">
-            Plan a Trip
+            {t("nav.planTrip")}
           </Link>
         </nav>
+        <LanguageSwitcher />
       </header>
 
       <main className="mx-auto max-w-6xl p-6">
