@@ -1,3 +1,5 @@
+import LanguageSwitcher from "./components/LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
 import { Link, Route, Routes } from "react-router";
@@ -8,6 +10,7 @@ import StationDetailPage from "./pages/StationDetailPage";
 import JourneysPage from "./pages/JourneysPage";
 
 export default function App() {
+  const { t } = useTranslation();
     const [signedIn, setSignedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -38,19 +41,19 @@ export default function App() {
 
         <nav className="mt-4 flex flex-wrap gap-6">
           <Link to="/status" className="hover:text-nyu">
-            Service & Accessibility
+            {t("nav.serviceStatus")}
           </Link>
 
           <Link to="/" className="hover:text-nyu">
-            Map
+            {t("nav.map")}
           </Link>
 
           <Link to="/stations" className="hover:text-nyu">
-            Stations
+            {t("nav.stations")}
           </Link>
 
           <Link to="/journeys" className="hover:text-nyu">
-            Plan a Trip
+            {t("nav.planTrip")}
           </Link>
           {signedIn ? (
   <>
@@ -83,6 +86,7 @@ export default function App() {
   <Link to="/login" className="hover:text-nyu">Sign in</Link>
 )}
         </nav>
+        <LanguageSwitcher />
       </header>
 
       <main className="mx-auto max-w-6xl p-6">
