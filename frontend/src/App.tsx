@@ -1,5 +1,7 @@
 import LanguageSwitcher from "./components/LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { useEffect, useState } from "react";
+
 import { Link, Route, Routes } from "react-router";
 import MapPage from "./pages/MapPage";
 import ServiceStatusPage from "./pages/ServiceStatusPage";
@@ -9,6 +11,29 @@ import JourneysPage from "./pages/JourneysPage";
 
 export default function App() {
   const { t } = useTranslation();
+    const [signedIn, setSignedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function checkSession() {
+      try {
+        const response = await fetch("/api/auth/session", {
+          signal: controller.signal,
+          cache: "no-store",
+        });
+        if (!response.ok) return;
+
+        const session = await response.json();
+        setSignedIn(current => current ?? (session.signedIn === true));
+      } catch {
+        // Keep the sign-in link available if the session check fails.
+      }
+    }
+
+    void checkSession();
+    return () => controller.abort();
+  }, []);
   return (
     <div className="min-h-screen bg-slate-100 text-slate-900">
       <header className="border-b border-slate-200 bg-white px-6 py-4">
@@ -30,12 +55,102 @@ export default function App() {
           <Link to="/journeys" className="hover:text-nyu">
             {t("nav.planTrip")}
           </Link>
+          {signedIn ? (
+  <>
+  <span>Signed in</span>
+  <button
+    type="button"
+    className="cursor-pointer hover:text-nyu"
+    onClick={async () => {
+      try {
+        const response = await fetch("/api/auth/logout", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "{}",
+        });
+
+        if (response.ok && (await response.json()).signedIn === false) {
+          setSignedIn(false);
+          return;
+        }
+        alert("Sign-out failed. Please try again.");
+      } catch {
+        alert("Could not reach the sign-out service. Please try again.");
+      }
+    }}
+  >
+    Sign out
+  </button>
+</>
+) : (
+  <Link to="/login" className="hover:text-nyu">Sign in</Link>
+)}
         </nav>
         <LanguageSwitcher />
       </header>
 
       <main className="mx-auto max-w-6xl p-6">
         <Routes>
+          <Route
+  path="/login"
+  element={signedIn ? (
+  <p>You’re signed in to NYC Transit Hub.</p>
+) : (
+    <section>
+      <h2>Sign in to NYC Transit Hub</h2>
+
+      <form onSubmit={async (event) => {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const fields = new FormData(form);
+
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: fields.get("email"),
+        password: fields.get("password"),
+      }),
+    });
+
+    if (response.status === 401) {
+      alert("The email or password is incorrect.");
+      return;
+    }
+
+    if (!response.ok || (await response.json()).signedIn !== true) {
+      alert("Could not complete sign-in. Check the connection to the backend.");
+      return;
+    }
+
+    setSignedIn(true);
+    form.reset();
+    alert("You’re signed in!");
+  } catch {
+    alert("Could not reach the sign-in service.");
+  }
+}}>
+        <p>
+          <label>
+            Email address<br />
+            <input type="email" name="email" autoComplete="username" required />
+          </label>
+        </p>
+
+        <p>
+          <label>
+            Password<br />
+            <input type="password" name="password" autoComplete="current-password" required />
+          </label>
+        </p>
+
+        <button type="submit">Sign in</button>
+      </form>
+    </section>
+  )}
+/>
+
           <Route path="/status" element={<ServiceStatusPage />} />
 
           <Route path="/" element={<MapPage />} />
