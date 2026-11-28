@@ -1,0 +1,16 @@
+{
+  "nav": {
+    "home": "Home",
+    "map": "Map",
+    "stations": "Stations",
+    "serviceStatus": "Service & Accessibility",
+    "planTrip": "Plan a Trip",
+    "favorites": "Favorites",
+    "signIn": "Sign In",
+    "signOut": "Sign Out"
+  },
+  "language": {
+    "english": "English",
+    "chinese": "中文"
+  }
+}
